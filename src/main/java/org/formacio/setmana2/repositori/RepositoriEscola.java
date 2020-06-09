@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.formacio.setmana2.domini.Alumne;
 import org.formacio.setmana2.domini.Curs;
 import org.formacio.setmana2.domini.Matricula;
 import org.springframework.stereotype.Component;
@@ -15,12 +16,12 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-@Transactional
 public class RepositoriEscola {
 
 	@PersistenceContext
 	private EntityManager em;
 	
+	@Transactional
 	public Curs carregaCurs(String nom) {
 		Curs curs = em.find(Curs.class, nom);
 		return curs;
@@ -28,7 +29,15 @@ public class RepositoriEscola {
 	
 	
 	public Matricula apunta (String alumne, String curs) throws EdatIncorrecteException {
-	    return null;	
+		Curs curso = this.carregaCurs(curs);
+		Alumne alumno = em.find(Alumne.class, alumne);
+		Matricula matricula = new Matricula();
+		if(curso!=null&alumno!=null) {
+			matricula.setAlumne(alumno);
+			matricula.setCurs(curso);
+			em.persist(matricula);
+		}
+		return matricula;
 	}
 	
 	
