@@ -33,6 +33,9 @@ public class RepositoriEscola {
 		Alumne alumno = em.find(Alumne.class, alumne);
 		Matricula matricula = new Matricula();
 		if(curso!=null&alumno!=null) {
+			if(alumno.getEdat()<curso.getEdatMinima()) {
+				throw new EdatIncorrecteException();
+			}
 			matricula.setAlumne(alumno);
 			matricula.setCurs(curso);
 			em.persist(matricula);
