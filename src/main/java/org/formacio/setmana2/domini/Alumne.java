@@ -1,9 +1,21 @@
 package org.formacio.setmana2.domini;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="t_alumnes")
 public class Alumne {
 
+	// create table t_alumnes (alu_nom varchar(255) not null, alu_edat integer, primary key (alu_nom))
+	
+	@Id
+	@Column(name="alu_nom")
 	private String nom;
 	
+	@Column(name="alu_edat")
 	private int edat;
 	
 	public String getNom() {
